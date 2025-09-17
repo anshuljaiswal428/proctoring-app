@@ -7,7 +7,7 @@ import Logs from './pages/Logs'
 
 function App() {
   return (
-    <div>
+    <div style={{width:"100vw", height:"100vh"}}>
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='interview-screen' element={<InterViewScreen/>}>

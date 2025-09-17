@@ -1,0 +1,38 @@
+.container-log {
+  border: 2px solid black;
+  width: 40vw;
+  height: 35vh;              
+  border-radius: 2rem;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;    
+  overflow: hidden;   
+  font-family: Arial, sans-serif;
+  font-size: medium;       
+}
+
+.container-head {
+  background-color: #222;
+  color: whitesmoke;
+  padding: 0.8rem 2rem;
+  flex-shrink: 0;            
+}
+
+.container-cont {
+  flex: 1;                   
+  overflow-y: auto;          
+  color: black;
+  border-top: 2px solid #222;
+}
+
+.para-content {
+  padding: 0.6rem 2rem;
+  border-bottom: 1px solid #222;
+  margin: 0;
+}
+
+.no-logs {
+  padding: 1rem 2rem;
+  color: #555;
+  font-style: italic;
+}
