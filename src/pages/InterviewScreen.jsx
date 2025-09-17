@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import VideoComponent from "../components/VideoComponent"
-import "../styles/InterViewScreen.css"
+import "../styles/InterviewScreen.css"
 import { Outlet } from 'react-router-dom'
 
 const InterviewScreen = () => {
