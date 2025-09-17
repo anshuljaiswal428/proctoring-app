@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home'
-import InterviewScreen from './pages/InterViewScreen'
+import InterviewScreen from './pages/InterviewScreen'
 import ResultLogs from './pages/ResultLogs'
 import Logs from './pages/Logs'
 
