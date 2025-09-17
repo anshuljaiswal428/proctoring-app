@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home'
-import InterViewScreen from './pages/InterViewScreen'
+import InterviewScreen from './pages/InterViewScreen'
 import ResultLogs from './pages/ResultLogs'
 import Logs from './pages/Logs'
 
@@ -10,7 +10,7 @@ function App() {
     <div style={{width:"100vw", height:"100vh"}}>
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='interview-screen' element={<InterViewScreen/>}>
+        <Route path='interview-screen' element={<InterviewScreen/>}>
           <Route index element={<Logs/>}/>
           <Route path='result-logs' element={<ResultLogs/>}/>
         </Route>

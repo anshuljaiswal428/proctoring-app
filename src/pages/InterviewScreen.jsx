@@ -3,7 +3,7 @@ import VideoComponent from "../components/VideoComponent"
 import "../styles/InterViewScreen.css"
 import { Outlet } from 'react-router-dom'
 
-const InterViewScreen = () => {
+const InterviewScreen = () => {
   const [logs, setLogs] = useState([]);
   const [liveLogs, setLiveLogs] = useState([]);
 
@@ -28,4 +28,4 @@ const InterViewScreen = () => {
   )
 }
 
-export default InterViewScreen
+export default InterviewScreen
