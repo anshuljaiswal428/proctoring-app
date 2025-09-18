@@ -1,37 +1,104 @@
 .container-log-res {
-  border: 2px solid black;
-  width: 100vw;
-  height: 100vh;              
-  background-color: rgb(255, 255, 255);
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+  font-family: "Inter", sans-serif;
+}
+
+.report-header {
   display: flex;
-  flex-direction: column;    
-  overflow: hidden;   
-  font-family: Arial, sans-serif;
-  font-size: medium;       
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
 }
 
-.container-head-res {
-  background-color: #222;
-  color: whitesmoke;
-  padding: 0.8rem 2rem;
-  flex-shrink: 0;            
+.container-head-res h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #1e1e2f;
 }
 
-.container-cont-res {
-  flex: 1;                   
-  overflow-y: auto;          
-  color: black;
-  border-top: 2px solid #222;
+.container-head-res .highlight {
+  color: #7c3aed; /* violet accent */
 }
 
-.para-content-res {
-  padding: 0.6rem 2rem;
-  border-bottom: 1px solid #222;
-  margin: 0;
+.duration {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
 }
 
-.no-logs-res {
-  padding: 1rem 2rem;
-  color: #555;
+.dialog-btn {
+  background: #7c3aed;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.dialog-btn:hover {
+  background: #6d28d9;
+}
+
+.log-list-res {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.log-card-res {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.log-card-res:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+.log-time-res {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+
+.log-data-res {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.log-item-res {
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.log-class-res {
+  font-weight: 600;
+  color: #1f2937;
+  text-transform: capitalize;
+}
+
+.log-score-res {
+  color: #10b981; /* green */
+  font-weight: 500;
+}
+
+.no-logs-res, .no-detect-res {
+  text-align: center;
+  color: #9ca3af;
   font-style: italic;
 }

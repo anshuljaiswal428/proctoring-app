@@ -20,7 +20,7 @@ export default function PlaceholdersAndVanishInputDemo({username, setUsername, s
     }
   };
   return (
-    <div className="h-[40rem] flex flex-col gap-3 justify-center  items-center px-4">
+    <div className="h-[40rem] flex flex-col gap-3 justify-center items-center px-4">
       <h2
         className="mb-10 sm:mb-20 text-xl text-center sm:text-5xl dark:text-white text-black">
           What should we call you?

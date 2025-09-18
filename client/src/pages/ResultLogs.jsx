@@ -29,7 +29,7 @@ const ResultLogs = () => {
         { responseType: "blob" }
       );
 
-      const blob = res.data; 
+      const blob = res.data;
       const url = window.URL.createObjectURL(blob);
 
       const a = document.createElement("a");
@@ -39,47 +39,53 @@ const ResultLogs = () => {
       a.click();
       a.remove();
 
-      window.URL.revokeObjectURL(url); 
+      window.URL.revokeObjectURL(url);
     } catch (err) {
       console.error("Error downloading PDF:", err);
     }
   };
 
-
   return (
     <div className="container-log-res">
       <div className="container-head-res">
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div className="report-header">
           <div>
-            <h2>Result Logs: {username}</h2>
-            <p><strong>Duration: {logs.length * 3} seconds</strong></p>
+            <h2 style={{color:"white"}}>Result Logs for <span className="highlight">{username}</span></h2>
+            <p className="duration">
+              <strong style={{color:"white"}}>Duration: {logs.length * 3} seconds</strong>
+            </p>
           </div>
           <div>
             <button className="dialog-btn" onClick={downloadPdf}>
               Download Report
             </button>
           </div>
-
         </div>
       </div>
-      <div className="container-cont-res">
+
+      <div className="log-list-res">
         {logs && logs.length > 0 ? (
           logs.map((logEntry, i) => {
             const time = logEntry.timestamp;
             const objects = logEntry.detections || [];
 
             return (
-              <div key={i} className="para-content-res">
-                <p><strong>{time}</strong></p>
-                {objects.length > 0 ? (
-                  objects.map((obj, j) => (
-                    <p key={j} className="log-line-res">
-                      {obj.class} ({Math.round(obj.score * 100)}%)
-                    </p>
-                  ))
-                ) : (
-                  <p className="log-line-res">No detections</p>
-                )}
+              <div key={i} className="log-card-res">
+                <div className="log-time-res">Time: {time}</div>
+                <div className="log-data-res">
+                  {objects.length > 0 ? (
+                    objects.map((obj, j) => (
+                      <div key={j} className="log-item-res">
+                        <span className="log-class-res">{obj.class}</span>
+                        <span className="log-score-res">
+                          {Math.round(obj.score * 100)}%
+                        </span>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="no-detect-res">No detections</p>
+                  )}
+                </div>
               </div>
             );
           })

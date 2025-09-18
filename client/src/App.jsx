@@ -6,7 +6,7 @@ import ResultLogs from './pages/ResultLogs'
 
 function App() {
   return (
-    <div style={{width:"100vw", height:"100vh"}}>
+    <div>
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='interview-screen' element={<InterviewScreen/>}/>

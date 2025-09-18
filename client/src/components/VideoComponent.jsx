@@ -5,7 +5,6 @@ import "@tensorflow/tfjs";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
 const VideoComponent = ({ onLogEvent, username, allLogs }) => {
   const videoRef = useRef(null);
   const [videoVal, setVideoVal] = useState(true);
@@ -15,14 +14,11 @@ const VideoComponent = ({ onLogEvent, username, allLogs }) => {
   useEffect(() => {
     if (videoVal) {
       navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
+        if (videoRef.current) videoRef.current.srcObject = stream;
       });
     } else {
-      if (videoRef.current && videoRef.current.srcObject) {
-        let tracks = videoRef.current.srcObject.getTracks();
-        tracks.forEach((track) => track.stop());
+      if (videoRef.current?.srcObject) {
+        videoRef.current.srcObject.getTracks().forEach((track) => track.stop());
         videoRef.current.srcObject = null;
       }
     }
@@ -31,24 +27,15 @@ const VideoComponent = ({ onLogEvent, username, allLogs }) => {
   useEffect(() => {
     let interval;
     let model;
-
     const loadModel = async () => {
       model = await cocoSsd.load();
-      console.log("Model Loaded successfully");
-
       videoRef.current.addEventListener("loadeddata", () => {
         interval = setInterval(async () => {
-          if (
-            videoRef.current &&
-            videoRef.current.readyState === 4 &&
-            videoRef.current.videoWidth > 0 &&
-            videoRef.current.videoHeight > 0
-          ) {
+          if (videoRef.current && videoRef.current.readyState === 4) {
             const predictions = await model.detect(videoRef.current);
             const filteredObjects = predictions.filter((pred) =>
               ["cell phone", "book", "laptop", "person"].includes(pred.class)
             );
-
             onLogEvent(filteredObjects);
           }
         }, 3000);
@@ -61,8 +48,7 @@ const VideoComponent = ({ onLogEvent, username, allLogs }) => {
   const handleLogs = async (reportData) => {
     try {
       const res = await axios.post(`${API_BASE_URL}/logs`, reportData);
-      console.log("Report saved2222:", res.data._id);
-      navigate("/result-logs", { state: { reportId: res.data._id , username: res.data.candidateName} });
+      navigate("/result-logs", { state: { reportId: res.data._id, username: res.data.candidateName } });
     } catch (err) {
       console.error("Error submitting report:", err);
     }
@@ -71,21 +57,18 @@ const VideoComponent = ({ onLogEvent, username, allLogs }) => {
   const handleFinishInterview = () => {
     setVideoVal(false);
 
-    const duration = `${allLogs.length * 3} seconds`; 
+    const duration = `${allLogs.length * 3} seconds`;
     const suspiciousEvents = allLogs.map((entry) => {
       const [time, data] = entry.split(" - ");
-      return {
-        timestamp: time,
-        detections: JSON.parse(data),
-      };
+      return { timestamp: time, detections: JSON.parse(data) };
     });
 
     const reportData = {
       candidateName: username,
       interviewDuration: duration,
-      focusLostCount: 0, 
+      focusLostCount: 0,
       suspiciousEvents,
-      finalIntegrityScore: 100, 
+      finalIntegrityScore: 100,
     };
 
     handleLogs(reportData);
@@ -94,10 +77,7 @@ const VideoComponent = ({ onLogEvent, username, allLogs }) => {
   return (
     <div className="container-video">
       <video ref={videoRef} autoPlay playsInline className="video-player" />
-      <button
-        className="video-btn"
-        onClick={handleFinishInterview}
-      >
+      <button className="video-btn" onClick={handleFinishInterview}>
         Finish Interview
       </button>
     </div>

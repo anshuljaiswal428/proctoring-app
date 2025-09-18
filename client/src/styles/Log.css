@@ -1,36 +1,77 @@
 .container-log {
-  border: 2px solid black;
-  width: 100%;
-  height: 100%;              
+  padding: 1.5rem;
+  max-width: 800px;
+  margin: auto;
+  font-family: "Inter", sans-serif;
+}
+
+.container-head h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #1e1e2f;
+}
+
+.container-head .highlight {
+  color: #7c3aed; /* violet */
+}
+
+.log-list {
   display: flex;
-  flex-direction: column;    
-  overflow: hidden;   
-  font-family: Arial, sans-serif;
-  font-size: medium;       
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.container-head {
-  background-color: #ffffff;
-  color: rgba(44, 43, 43, 0.826);
-  padding: 0.8rem 2rem;
-  flex-shrink: 0;            
+.log-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.container-cont {
-  flex: 1;                   
-  overflow-y: auto;          
-  color: rgba(255, 255, 255, 0.826);
-  border-top: 2px solid #222;
+.log-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
 }
 
-.para-content {
-  padding: 0.6rem 2rem;
-  border-bottom: 1px solid #222;
-  margin: 0;
+.log-time {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
 }
 
-.no-logs {
-  padding: 1rem 2rem;
-  color: #555;
+.log-data {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.log-item {
+  background: #f3f4f6;
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.log-class {
+  font-weight: 600;
+  color: #1f2937;
+  text-transform: capitalize;
+}
+
+.log-score {
+  color: #10b981; /* green */
+  font-weight: 500;
+}
+
+.no-logs, .no-detect {
+  text-align: center;
+  color: #9ca3af;
   font-style: italic;
 }
