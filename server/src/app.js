@@ -3,7 +3,7 @@ import cors from "cors";
 import uploadRoutes from "./routes/uploadRoutes.js"
 
 const app = express();
-const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"];
+const allowedOrigins = ["http://localhost:5173", "http://localhost:5174", "https://proctoringbyanshul.vercel.app"];
 
 app.use(cors({
     origin: (origin, callback) => {
