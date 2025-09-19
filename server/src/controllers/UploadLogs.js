@@ -8,7 +8,7 @@ export const createReport = async (req, res) => {
       suspiciousEvents,
     } = req.body;
 
-    if (!candidateName || !interviewDuration || !finalIntegrityScore) {
+    if (!candidateName || !interviewDuration ) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
