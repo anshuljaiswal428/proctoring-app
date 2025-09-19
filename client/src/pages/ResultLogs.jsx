@@ -7,29 +7,28 @@ const ResultLogs = () => {
   const location = useLocation();
   const { reportId, username } = location.state || {};
   const [logs, setLogs] = useState([]);
-  const [resp, setResp] = useState();
+  const [reportData, setReportData] = useState(null);
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
-    const submitReport = async () => {
+    const fetchReport = async () => {
       try {
         const res = await axios.get(`${API_BASE_URL}/logs/${reportId}`);
-        setLogs(res.data.suspiciousEvents);
-        setResp(res);
+        setReportData(res.data || {});
+        setLogs(res.data?.suspiciousEvents || []);
       } catch (err) {
-        console.error("Error submitting report:", err);
+        console.error("Error fetching report:", err);
       }
     };
-    if (reportId) {
-      submitReport();
-    }
-  }, []);
+
+    if (reportId) fetchReport();
+  }, [reportId, API_BASE_URL]);
 
   const downloadPdf = async () => {
     try {
-      const res = await axios.get(`${API_BASE_URL}/logs/${reportId}/pdf`,
-        { responseType: "blob" }
-      );
+      const res = await axios.get(`${API_BASE_URL}/logs/${reportId}/pdf`, {
+        responseType: "blob",
+      });
 
       const blob = res.data;
       const url = window.URL.createObjectURL(blob);
@@ -52,15 +51,23 @@ const ResultLogs = () => {
       <div className="container-head-res">
         <div className="report-header">
           <div>
-            <h2 style={{color:"white"}}>Result Logs for <span className="highlight">{username}</span></h2>
+            <h2 style={{ color: "white" }}>
+              Result Logs for <span className="highlight">{username || "Unknown"}</span>
+            </h2>
             <p className="duration">
-              <strong style={{color:"white"}}>Duration: {resp.data.interviewDuration} </strong>
+              <strong style={{ color: "white" }}>
+                Duration: {reportData?.interviewDuration || "Loading..."}
+              </strong>
             </p>
             <p className="duration">
-              <strong style={{color:"white"}}>Focus Lost: {resp.data.focusLostCount} times</strong>
+              <strong style={{ color: "white" }}>
+                Focus Lost: {reportData?.focusLostCount ?? "Loading..."} times
+              </strong>
             </p>
             <p className="duration">
-              <strong style={{color:"white"}}>Final Integrity Score: {resp.data.finalIntegrityScore} / 100</strong>
+              <strong style={{ color: "white" }}>
+                Final Integrity Score: {reportData?.finalIntegrityScore ?? "Loading..."} / 100
+              </strong>
             </p>
           </div>
           <div>
@@ -72,7 +79,7 @@ const ResultLogs = () => {
       </div>
 
       <div className="log-list-res">
-        {logs && logs.length > 0 ? (
+        {logs.length > 0 ? (
           logs.map((logEntry, i) => {
             const time = logEntry.timestamp;
             const objects = logEntry.detections || [];

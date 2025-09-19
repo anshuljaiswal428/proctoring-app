@@ -91,8 +91,8 @@ const VideoComponent = ({ onLogEvent, username, allLogs, setFocus }) => {
           const predictions = await cocoModel.detect(videoRef.current);
 
           const personDetected = predictions.some((pred) => pred.class === "person");
-
           const suspiciousObjects = predictions.filter((pred) => pred.class !== "person");
+
           if (!personDetected || suspiciousObjects.length > 0) {
             setFocusLostCount((prev) => {
               const updated = prev + suspiciousObjects.length + (!personDetected ? 1 : 0);
@@ -106,13 +106,13 @@ const VideoComponent = ({ onLogEvent, username, allLogs, setFocus }) => {
           );
           onLogEvent(filteredObjects);
         }
-      }, 3000);
+      }, 1000);
 
       intervalFaceMesh = setInterval(async () => {
         if (videoRef.current?.readyState === 4) {
           await faceMesh.send({ image: videoRef.current });
         }
-      }, 3000);
+      }, 1000);
     };
 
     loadModels();
@@ -148,7 +148,7 @@ const VideoComponent = ({ onLogEvent, username, allLogs, setFocus }) => {
       return { timestamp: time, detections };
     });
 
-    const reportData = {
+    const reportDataToSend = {
       candidateName: username || "Unknown",
       interviewDuration: duration,
       focusLostCount,
@@ -157,10 +157,22 @@ const VideoComponent = ({ onLogEvent, username, allLogs, setFocus }) => {
     };
 
     try {
-      const res = await axios.post(`${API_BASE_URL}/logs`, reportData);
-      navigate("/result-logs", { state: { reportId: res.data._id, username: res.data.candidateName } });
+      const res = await axios.post(`${API_BASE_URL}/logs`, reportDataToSend);
+
+      const safeData = res?.data || {
+        _id: "unknown",
+        candidateName: username || "Unknown",
+      };
+
+      navigate("/result-logs", {
+        state: { reportId: safeData._id, username: safeData.candidateName },
+      });
     } catch (err) {
       console.error("Error submitting report:", err);
+
+      navigate("/result-logs", {
+        state: { reportId: "unknown", username: username || "Unknown" },
+      });
     }
   };
 
