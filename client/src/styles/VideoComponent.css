@@ -19,6 +19,7 @@
   border-radius: 1rem;
   object-fit: cover;
   box-shadow: 0 0 20px rgba(0,255,255,0.2);
+  transform: scaleX(-1);
 }
 
 .video-btn {
