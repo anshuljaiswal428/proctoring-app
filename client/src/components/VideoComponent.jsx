@@ -51,15 +51,12 @@ const VideoComponent = ({ onLogEvent, username, allLogs, setFocus }) => {
         if (!results.multiFaceLandmarks?.length) return;
 
         const landmarks = results.multiFaceLandmarks[0];
-
         const leftIris = landmarks[468];
         const rightIris = landmarks[473];
-
         const leftEyeLeft = landmarks[33];
         const leftEyeRight = landmarks[133];
         const leftEyeTop = landmarks[159];
         const leftEyeBottom = landmarks[145];
-
         const rightEyeLeft = landmarks[362];
         const rightEyeRight = landmarks[263];
 
@@ -89,15 +86,16 @@ const VideoComponent = ({ onLogEvent, username, allLogs, setFocus }) => {
       });
       cameraRef.current.start();
 
-      // CocoSSD interval
       intervalCoco = setInterval(async () => {
         if (videoRef.current?.readyState === 4) {
           const predictions = await cocoModel.detect(videoRef.current);
+
           const personDetected = predictions.some((pred) => pred.class === "person");
 
-          if (!personDetected) {
+          const suspiciousObjects = predictions.filter((pred) => pred.class !== "person");
+          if (!personDetected || suspiciousObjects.length > 0) {
             setFocusLostCount((prev) => {
-              const updated = prev + 1;
+              const updated = prev + suspiciousObjects.length + (!personDetected ? 1 : 0);
               setFocus(updated);
               return updated;
             });
