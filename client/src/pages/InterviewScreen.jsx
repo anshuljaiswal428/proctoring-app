@@ -9,11 +9,13 @@ const InterviewScreen = () => {
   const [liveLogs, setLiveLogs] = useState([]);
   const [username, setUsername] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [focus, setFocus] = useState(0);
 
   const logEvent = (event) => {
     const timestamp = new Date().toLocaleTimeString();
-    setLogs((prev) => [...prev, `${timestamp} - ${JSON.stringify(event)}`]);
-    setLiveLogs([`${timestamp} - ${JSON.stringify(event)}`]);
+    const logEntry = `${timestamp} - ${JSON.stringify(event)}`;
+    setLogs((prev) => [...prev, logEntry]);
+    setLiveLogs([logEntry]);
   };
 
   return (
@@ -29,10 +31,15 @@ const InterviewScreen = () => {
       ) : (
         <>
           <div className="child left">
-            <VideoComponent onLogEvent={logEvent} username={username} allLogs={logs} />
+            <VideoComponent
+              setFocus={setFocus}
+              onLogEvent={logEvent}
+              username={username}
+              allLogs={logs}
+            />
           </div>
           <div className="child right">
-            <Logs liveLogs={liveLogs} logs={logs} username={username} />
+            <Logs focus={focus} liveLogs={liveLogs} logs={logs} username={username} />
           </div>
         </>
       )}

@@ -7,6 +7,7 @@ const ResultLogs = () => {
   const location = useLocation();
   const { reportId, username } = location.state || {};
   const [logs, setLogs] = useState([]);
+  const [resp, setResp] = useState();
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
   useEffect(() => {
@@ -14,6 +15,7 @@ const ResultLogs = () => {
       try {
         const res = await axios.get(`${API_BASE_URL}/logs/${reportId}`);
         setLogs(res.data.suspiciousEvents);
+        setResp(res);
       } catch (err) {
         console.error("Error submitting report:", err);
       }
@@ -52,7 +54,13 @@ const ResultLogs = () => {
           <div>
             <h2 style={{color:"white"}}>Result Logs for <span className="highlight">{username}</span></h2>
             <p className="duration">
-              <strong style={{color:"white"}}>Duration: {logs.length * 3} seconds</strong>
+              <strong style={{color:"white"}}>Duration: {resp.data.interviewDuration} </strong>
+            </p>
+            <p className="duration">
+              <strong style={{color:"white"}}>Focus Lost: {resp.data.focusLostCount} times</strong>
+            </p>
+            <p className="duration">
+              <strong style={{color:"white"}}>Final Integrity Score: {resp.data.finalIntegrityScore} / 100</strong>
             </p>
           </div>
           <div>

@@ -5,17 +5,21 @@ export const createReport = async (req, res) => {
     const {
       candidateName,
       interviewDuration,
+      focusLostCount,
       suspiciousEvents,
+      finalIntegrityScore,
     } = req.body;
 
-    if (!candidateName || !interviewDuration ) {
+    if (!candidateName || !interviewDuration || !finalIntegrityScore) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
     const newReport = new ProctoringReport({
       candidateName,
       interviewDuration,
+      focusLostCount,
       suspiciousEvents,
+      finalIntegrityScore,
     });
 
     const savedReport = await newReport.save();

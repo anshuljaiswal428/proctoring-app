@@ -14,7 +14,9 @@ const suspiciousEventSchema = new mongoose.Schema({
 const proctoringReportSchema = new mongoose.Schema({
   candidateName: { type: String, required: true },
   interviewDuration: { type: String, required: true },
+  focusLostCount: { type: Number, default: 0 },
   suspiciousEvents: [suspiciousEventSchema], 
+  finalIntegrityScore: { type: Number, required: true }, 
   createdAt: { type: Date, default: Date.now }
 });
 

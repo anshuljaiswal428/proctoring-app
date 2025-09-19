@@ -43,6 +43,20 @@ export const generateReportPdf = async (req, res) => {
       .moveDown(0.3);
 
     doc
+      .fillColor("#000")
+      .text(`Focus Lost Count: `, { continued: true })
+      .fillColor("#000") 
+      .text(`${report.focusLostCount}`)
+      .moveDown(0.3);
+
+    doc
+      .fillColor("#000")
+      .text(`Final Integrity Score: `, { continued: true })
+      .fillColor("#000") 
+      .text(`${report.finalIntegrityScore} / 100`)
+      .moveDown(0.5);
+
+    doc
       .fillColor("#6B7280")
       .fontSize(12)
       .text(`Created At: ${new Date(report.createdAt).toLocaleString()}`)
