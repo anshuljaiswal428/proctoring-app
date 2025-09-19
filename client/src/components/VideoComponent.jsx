@@ -66,9 +66,7 @@ const VideoComponent = ({ onLogEvent, username, allLogs }) => {
     const reportData = {
       candidateName: username,
       interviewDuration: duration,
-      focusLostCount: 0,
       suspiciousEvents,
-      finalIntegrityScore: 100,
     };
 
     handleLogs(reportData);

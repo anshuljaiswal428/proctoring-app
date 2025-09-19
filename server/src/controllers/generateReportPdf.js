@@ -31,30 +31,16 @@ export const generateReportPdf = async (req, res) => {
       .fillColor("#000")
       .fontSize(14)
       .text(`Candidate Name: `, { continued: true })
-      .fillColor("#4F46E5")
+      .fillColor("#000")
       .text(`${report.candidateName}`)
       .moveDown(0.3);
 
     doc
       .fillColor("#000")
       .text(`Interview Duration: `, { continued: true })
-      .fillColor("#10B981")
+      .fillColor("#000")
       .text(`${report.interviewDuration}`)
       .moveDown(0.3);
-
-    doc
-      .fillColor("#000")
-      .text(`Focus Lost Count: `, { continued: true })
-      .fillColor("#F59E0B") 
-      .text(`${report.focusLostCount}`)
-      .moveDown(0.3);
-
-    doc
-      .fillColor("#000")
-      .text(`Final Integrity Score: `, { continued: true })
-      .fillColor("#EF4444") 
-      .text(`${report.finalIntegrityScore}`)
-      .moveDown(0.5);
 
     doc
       .fillColor("#6B7280")

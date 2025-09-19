@@ -5,9 +5,7 @@ export const createReport = async (req, res) => {
     const {
       candidateName,
       interviewDuration,
-      focusLostCount,
       suspiciousEvents,
-      finalIntegrityScore,
     } = req.body;
 
     if (!candidateName || !interviewDuration || !finalIntegrityScore) {
@@ -17,9 +15,7 @@ export const createReport = async (req, res) => {
     const newReport = new ProctoringReport({
       candidateName,
       interviewDuration,
-      focusLostCount,
       suspiciousEvents,
-      finalIntegrityScore,
     });
 
     const savedReport = await newReport.save();
